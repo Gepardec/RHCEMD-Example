@@ -4,6 +4,7 @@ bin/
 *.ipr
 *.iml
 *.iws
+*.http
 .vscode
 .factorypath
 target/
