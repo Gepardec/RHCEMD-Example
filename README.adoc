@@ -1,3 +1,30 @@
 = RHCEMD-Example
 
 This repository holds the example application as a preparation for the RHCEMD (Red-Hat-Certified-Enterprise-Microservice-Developer) exam.
+
+== Setup
+
+This example is based on the Wildfly 22 application server.
+
+IMPORTANT: You need to run the server with the `standalone-microprofile.xml` configuration.
+
+== Microprofile
+
+The following sections explain the setup and usage of the implement Microprofile specifications.
+
+=== Health
+
+The readiness/liveness can be checked via the management endpoint and not via the application endpoint.
+
+.Healthcheck endpoints
+[source,bash]
+----
+# Readiness and Liveness Probes
+http://localhost:9990/health
+
+# Readiness Probes
+http://localhost:9990/health/ready
+
+# Liveness Probes
+http://localhost:9990/health/live
+----
