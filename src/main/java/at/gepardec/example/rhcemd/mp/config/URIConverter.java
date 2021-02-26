@@ -1,4 +1,4 @@
-package at.gepardec.example.rhcemd.mp.config.converter;
+package at.gepardec.example.rhcemd.mp.config;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.microprofile.config.spi.Converter;
