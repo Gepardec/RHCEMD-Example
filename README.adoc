@@ -14,6 +14,8 @@ The following sections explain the setup and usage of the implement Microprofile
 
 === Health
 
+Read link:https://github.com/eclipse/microprofile-health/blob/master/spec/src/main/asciidoc/protocol-wireformat.adoc[this] documentation about the wireformat and protocol health producer need to consider.
+
 The readiness/liveness can be checked via the management endpoint and not via the application endpoint.
 
 .Healthcheck endpoints
