@@ -30,3 +30,28 @@ http://localhost:9990/health/ready
 # Liveness Probes
 http://localhost:9990/health/live
 ----
+
+=== Fault Tolerance
+
+Read link:https://download.eclipse.org/microprofile/microprofile-fault-tolerance-1.1.2/microprofile-fault-tolerance-spec.html[this] doc about the fault tolerance specification and its relation ot other microprofile or Jakarta EE specifications such as CDI.
+
+==== Timeout
+
+The `@Timeout` annotation is a little tricky because it only works if the Thread
+
+. waits for sometime,
+. or the execution logic checks the interrupted state of the Thread it's executed on,
+. and if the InterruptedException is not catched and ignored.
+
+.Timeout example endpoints
+[source,bash]
+----
+# A working example of the timeout handling
+http://localhost:8080/rhcemd/api/timeout/working
+
+# Illustrating the problem when a Threaqd doesn't wait and noone checks its interrupted state
+http://localhost:8080/rhcemd/api/timeout/broken
+
+# See how the annotations can be configured via microprofile-config
+http://localhost:8080/rhcemd/api/timeout/configured
+----

@@ -1,5 +1,6 @@
 package at.gepardec.example.rhcemd;
 
+import at.gepardec.example.rhcemd.mp.config.ApplicationConfig;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;

@@ -1,4 +1,4 @@
-package at.gepardec.example.rhcemd;
+package at.gepardec.example.rhcemd.mp.config;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
