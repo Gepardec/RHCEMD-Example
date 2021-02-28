@@ -60,7 +60,7 @@ http://localhost:8080/rhcemd/api/timeout/configured
 
 The `@Retry` annotation is pretty easy to use and to understand and doesn't have drawbacks as `@Timeout` has.
 
-.Timeout example endpoints
+.Retry example endpoints
 [source,bash]
 ----
 # Retry works because error count < retryCount
@@ -77,4 +77,36 @@ http://localhost:8080/rhcemd/api/retry/retryOnWorking
 
 # Retry doesn't work because fails to often with a supported exception type
 http://localhost:8080/rhcemd/api/retry/retryOnFail
+----
+
+==== Asynchronous
+
+The `@Asynchronous` annotation executes methods on a different Thread but needs an active RequestContext.
+`@Asynchronous` even allows us to use request scoped beans on another Thread which normally would cause a `ContextNotActiveException`.
+So there if some kind o context propagation taking place.
+
+There are limitations when using `Future` instead of `CompletionStage` as a return type of the async invoked methods.
+`Future` doesn't allow chaining of executions, so if the future failed, then other fault-tolerance mechanisms such as `@Retry` won't work.
+Only `CompletionStage` allows chaining, so if the `CompletionStage` failed, other fault-tolerance mechanisms can be invoked by chaining them on the failed `CompletionStage`.
+
+.Asynchronous example endpoints
+[source,bash]
+----
+# Asynchronous with CompletionStage working
+http://localhost:8080/rhcemd/api/async/completionStage/working
+
+# Asynchronous with CompletionStage fails with exception
+http://localhost:8080/rhcemd/api/async/completionStage/fail
+
+# Asynchronous with failed CompletionStage but working Retry
+http://localhost:8080/rhcemd/api/async/completionStage/workingRetry
+
+# Asynchronous with Future working
+http://localhost:8080/rhcemd/api/async/future/working
+
+# Asynchronous with Future fails with an exception
+http://localhost:8080/rhcemd/api/async/future/fail
+
+# Asynchronous with failed Future which breaks other fault-tolerance mechanisms such as Retry
+http://localhost:8080/rhcemd/api/async/future/failedRetry
 ----
