@@ -138,3 +138,34 @@ http://localhost:8080/rhcemd/api/fallback/applyOnWorking
 # Fallback fails because an unsupported thrown exception type (fallback method with parameters)
 http://localhost:8080/rhcemd/api/fallback/applyOnFail
 ----
+
+==== CircuitBreaker
+
+The `@CircuitBreaker` annotation is used to fail method calls fast, when the calls fail to often.
+The circuit will be opened for the defined delay and half-close until a success threshold has been reached, and then closes again.
+
+The implemented example illustrates the following scenario:
+
+. Calls are made every 100 millis via a `Timer`
+. The executions are repeated 50 times
+. Call `1-5` and `21-25` fail with an exception
+. The circuit is configured as `@CircuitBreaker(requestVolumeThreshold = 10, failureRatio = 0.5, successThreshold = 5, delay = 550, delayUnit = ChronoUnit.MILLIS)`
+
+The result is:
+
+. Calls `1-5`   fail with an intended exception
+. Calls `6-10`  fail because of the circuit being open for 550 millis
+. Calls `11-15` work because circuit is half-open
+. Calls `16-20` work because circuit is closed
+. Calls `21-25` fail because of an intended exception
+. Calls `26-30` fail because of the circuit being open for 550 millis
+. Calls `31-35` work because circuit is half-open
+. Calls `36-50` work because circuit is closed
+
+
+.CircuitBreaker example endpoints
+[source,bash]
+----
+# Trigger the scenario
+http://localhost:8080/rhcemd/api/circuitbreaker
+----
