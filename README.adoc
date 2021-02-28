@@ -110,3 +110,31 @@ http://localhost:8080/rhcemd/api/async/future/fail
 # Asynchronous with failed Future which breaks other fault-tolerance mechanisms such as Retry
 http://localhost:8080/rhcemd/api/async/future/failedRetry
 ----
+
+==== Fallback
+
+The `@Fallback` annotation is used to define fallback methods or handlers which provide a fallback result if a method fails.
+When a method has a fallback method defined, then the fallback method must have the same signature as the method declaring the fallback.
+When using a `FallbackHandler<T>` then we get an `ExecutionContext` provided which hold's
+
+. the exception thrown,
+. the method object which failed,
+. and the parameters of the method invocation.
+
+So the `FallbackHandler` handler is generic approach to provide a fallback result for any method signature, just the `FallbackHandler<T>` type parameter needs to be assignable to the actual method return type.
+
+.Fallback example endpoints
+[source,bash]
+----
+# Fallback working with a fallback method with no parameters
+http://localhost:8080/rhcemd/api/fallback/method
+
+# Fallback working with a fallback handler bean (unmanaged instance for each fallback)
+http://localhost:8080/rhcemd/api/fallback/bean
+
+# Fallback working with an supported thrown exception type (fallback method with parameters)
+http://localhost:8080/rhcemd/api/fallback/applyOnWorking
+
+# Fallback fails because an unsupported thrown exception type (fallback method with parameters)
+http://localhost:8080/rhcemd/api/fallback/applyOnFail
+----
