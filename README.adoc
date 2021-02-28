@@ -55,3 +55,26 @@ http://localhost:8080/rhcemd/api/timeout/broken
 # See how the annotations can be configured via microprofile-config
 http://localhost:8080/rhcemd/api/timeout/configured
 ----
+
+==== Retry
+
+The `@Retry` annotation is pretty easy to use and to understand and doesn't have drawbacks as `@Timeout` has.
+
+.Timeout example endpoints
+[source,bash]
+----
+# Retry works because error count < retryCount
+http://localhost:8080/rhcemd/api/retry/working
+
+# Retry doesn't work because fails to often
+http://localhost:8080/rhcemd/api/retry/fail
+
+# Retry doesn't work because an unsupported exception type is thrown
+http://localhost:8080/rhcemd/api/retry/noRetry
+
+# Retry works because a supported exception type is thrown
+http://localhost:8080/rhcemd/api/retry/retryOnWorking
+
+# Retry doesn't work because fails to often with a supported exception type
+http://localhost:8080/rhcemd/api/retry/retryOnFail
+----
