@@ -162,10 +162,38 @@ The result is:
 . Calls `31-35` work because circuit is half-open
 . Calls `36-50` work because circuit is closed
 
-
 .CircuitBreaker example endpoints
 [source,bash]
 ----
 # Trigger the scenario
 http://localhost:8080/rhcemd/api/circuitbreaker
+----
+
+==== Bulkhead
+
+The `@Bulkhead` annotation is used to throttle request to method calls on an instance, whereby there are two types of isolation:
+
+. `Semaphore isolation` which throws an exception on all subsequent calls when the counter has reached the maximum
+. `ThreadPool isolation` which queues subsequent calls up to a defined maximum and throws an exception on all other subsequent calls.
+
+The examples are implemented in the test class `BulkheadTest` and illustrate the following scenarios:
+
+. `Semaphore isolation`
+.. `5` parallel calls with `5` maximum allowed calls where all calls are working
+.. `10` parallel calls with `5` maximum calls where `5` calls are skipped with an exception
+. `ThreadPool isolation`
+.. `10` parallel calls with `5` maximum, and a queue size of `10` where all calls are working
+.. `20` parallel calls with `5` maximum, and a queue size of `10` where `5` calls are skipped with an exception
+
+IMPORTANT: The unit test requires the application to be running on `http://localhost:8080/api/` and are dependent on the capability of your machine to parallelize.
+If some test fail maybe your machine cannot handle the parallelism.
+
+.Bulkhead example endpoints
+[source,bash]
+----
+# The endpoint for the semaphore isolation
+http://localhost:8080/rhcemd/api/bulkhead/semaphore
+
+# The endpoint for the threadpool isolation
+http://localhost:8080/rhcemd/api/bulkhead/threadpool
 ----

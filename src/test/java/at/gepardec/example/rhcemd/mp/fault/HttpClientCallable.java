@@ -1,6 +1,7 @@
 package at.gepardec.example.rhcemd.mp.fault;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
@@ -13,13 +14,14 @@ import java.util.stream.IntStream;
 
 public class HttpClientCallable implements Callable<String> {
 
-    private static final String baseURI = "http://localhost:8080/rhcemd/api";
+    private final String baseURI;
 
     private final int call;
 
     private final HttpGet request;
 
     private HttpClientCallable(String path, int call) {
+        baseURI = System.getProperty("baseURI");
         this.request = new HttpGet(baseURI + path);
         this.call = call;
     }
@@ -34,7 +36,11 @@ public class HttpClientCallable implements Callable<String> {
 
     @Override
     public String call() throws Exception {
-        String response = callAndGetResponse();
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+        if (HttpStatus.SC_INTERNAL_SERVER_ERROR == httpResponse.getStatusLine().getStatusCode()) {
+            throw new RuntimeException("500 received");
+        }
+        String response = EntityUtils.toString(httpResponse.getEntity());
 
         return call + " call '" + request.getURI().toString() + "' with response '" + response + "'";
     }
