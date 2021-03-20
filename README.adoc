@@ -4,7 +4,7 @@ This repository holds the example application as a preparation for the RHCEMD (R
 
 == Setup
 
-This example is based on the JakartaEE 8 spec, Microprofile 3.0 spec and the Payara Micro 5.2021.1 application server.
+This example is based on the JakartaEE 8 spec, Microprofile 4.0 spec and the Payara Micro 5.2021.1 application server.
 
 .Run via maven
 [source,bash]
