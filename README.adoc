@@ -6,7 +6,17 @@ This repository holds the example application as a preparation for the RHCEMD (R
 
 This example is based on the JakartaEE 8 spec, Microprofile 3.0 spec and the Payara Micro 5.2021.1 application server.
 
-IMPORTANT: You need to run the server with the `standalone-microprofile.xml` configuration.
+.Run via maven
+[source,bash]
+----
+mvn clean package payara-micro:start
+----
+
+.Run as JAR
+[source,bash]
+----
+java -jar .\target\rhcemd-example-1.0.0-SNAPSHOT-microbundle.jar
+----
 
 == Microprofile
 
@@ -22,13 +32,13 @@ The readiness/liveness can be checked via the management endpoint and not via th
 [source,bash]
 ----
 # Readiness and Liveness Probes
-http://localhost:9990/health
+http://localhost:8080/health
 
 # Readiness Probes
-http://localhost:9990/health/ready
+http://localhost:8080/health/ready
 
 # Liveness Probes
-http://localhost:9990/health/live
+http://localhost:8080/health/live
 ----
 
 === Fault Tolerance

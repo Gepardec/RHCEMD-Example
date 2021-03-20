@@ -147,23 +147,11 @@
                 <configuration>
                     <useUberJar>false</useUberJar>
                     <deployWar>true</deployWar>
-                    <payaraVersion>${version.payara}</payaraVersion>
                     <contextRoot>/rhcemd</contextRoot>
+                    <autoDeployContextRoot>/rhcemd</autoDeployContextRoot>
+                    <autoDeployEmptyContextRoot>false</autoDeployEmptyContextRoot>
+                    <payaraVersion>${version.payara}</payaraVersion>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>bundle</id>
-                        <goals>
-                            <goal>bundle</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>start</id>
-                        <goals>
-                            <goal>start</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>

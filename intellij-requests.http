@@ -1,0 +1,84 @@
+GET http://localhost:8080/health/ready
+
+###
+
+GET http://localhost:8080/health/live
+
+###
+
+GET http://localhost:8080/health
+
+###
+
+GET http://localhost:8080/rhcemd/api/timeout/working
+
+###
+GET http://localhost:8080/rhcemd/api/timeout/broken
+
+###
+GET http://localhost:8080/rhcemd/api/timeout/configured
+
+###
+GET http://localhost:8080/rhcemd/api/retry/working
+
+###
+GET http://localhost:8080/rhcemd/api/retry/fail
+
+###
+GET http://localhost:8080/rhcemd/api/retry/noRetry
+
+###
+GET http://localhost:8080/rhcemd/api/retry/retryOnWorking
+
+###
+GET http://localhost:8080/rhcemd/api/retry/retryOnFail
+
+###
+GET http://localhost:8080/rhcemd/api/async/completionStage/working
+
+###
+GET http://localhost:8080/rhcemd/api/async/completionStage/fail
+
+###
+GET http://localhost:8080/rhcemd/api/async/completionStage/workingRetry
+
+###
+GET http://localhost:8080/rhcemd/api/async/future/working
+
+###
+GET http://localhost:8080/rhcemd/api/async/future/fail
+
+###
+GET http://localhost:8080/rhcemd/api/async/future/failedRetry
+
+###
+GET http://localhost:8080/rhcemd/api/fallback/method
+
+###
+GET http://localhost:8080/rhcemd/api/fallback/bean
+
+###
+GET http://localhost:8080/rhcemd/api/fallback/applyOnWorking
+
+###
+GET http://localhost:8080/rhcemd/api/fallback/applyOnFail
+
+###
+GET http://localhost:8080/rhcemd/api/circuitbreaker
+
+###
+
+OPTIONS http://localhost:8080/metrics/application
+Accept: application/json
+
+###
+
+GET http://localhost:8080/metrics/base/gc.total
+Accept: application/json
+
+###
+
+GET http://localhost:8080/metrics/application
+Accept: application/json
+
+###
