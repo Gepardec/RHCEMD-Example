@@ -9,7 +9,7 @@ This example is based on the JakartaEE 8 spec, Microprofile 3.0 spec and the Pay
 .Run via maven
 [source,bash]
 ----
-mvn clean package payara-micro:start
+mvn clean install payara-micro:start
 ----
 
 .Run as JAR
