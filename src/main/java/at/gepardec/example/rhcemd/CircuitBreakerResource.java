@@ -1,6 +1,7 @@
 package at.gepardec.example.rhcemd;
 
 import at.gepardec.example.rhcemd.mp.fault.CircuitBreakerServiceTimerTask;
+import org.eclipse.microprofile.metrics.annotation.Counted;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -13,6 +14,7 @@ import java.util.Timer;
 
 @Path("/circuitbreaker")
 @RequestScoped
+@Counted(name = "example-resource", absolute = true)
 public class CircuitBreakerResource {
 
     @Inject

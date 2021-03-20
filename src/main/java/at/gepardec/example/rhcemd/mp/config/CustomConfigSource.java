@@ -3,6 +3,7 @@ package at.gepardec.example.rhcemd.mp.config;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 
 import java.util.Map;
+import java.util.Set;
 
 public class CustomConfigSource implements ConfigSource {
 
@@ -13,6 +14,10 @@ public class CustomConfigSource implements ConfigSource {
     @Override
     public Map<String, String> getProperties() {
         return CONFIG;
+    }
+
+    @Override public Set<String> getPropertyNames() {
+        return CONFIG.keySet();
     }
 
     @Override

@@ -1,10 +1,9 @@
 package at.gepardec.example.rhcemd.mp.fault;
 
-import org.slf4j.Logger;
-
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * This class implements the scenario to illustrate the CircuitBreaker mechanism.
@@ -64,7 +63,7 @@ public class CircuitBreakerServiceTimerTask extends TimerTask {
             internalResult.registerSuccessCall(count);
         } catch (Exception e) {
             internalResult.registerFailedCall(e.getClass().getSimpleName(), count);
-            log.error("CircuitBreakerService call '" + count + "' failed. exception: " + e.getClass().getSimpleName());
+            log.severe("CircuitBreakerService call '" + count + "' failed. exception: " + e.getClass().getSimpleName());
         }
 
         if (count == 50) {

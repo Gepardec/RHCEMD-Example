@@ -22,7 +22,7 @@ public class RhcemdLivenessCheck implements HealthCheck {
     public HealthCheckResponse call() {
         return HealthCheckResponse.builder()
                 .name("RhcemdLivenessCheck")
-                .state(true)
+                .status(true)
                 .withData("checks", "none")
                 .build();
     }

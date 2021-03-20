@@ -13,13 +13,13 @@
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <war-plugin.version>3.3.1</war-plugin.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-        <wildfly-plugin.version>2.1.0.Beta1</wildfly-plugin.version>
+        <payaramicro.maven.plugin.version>1.0.5</payaramicro.maven.plugin.version>
 
         <!-- Dependency Versions -->
-        <wildfly.version>22.0.0.Final</wildfly.version>
         <krazo.version>1.1.0</krazo.version>
         <krazo-ext-thymeleaf.version>1.1.0</krazo-ext-thymeleaf.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
+        <version.payara>5.2021.1</version.payara>
 
         <!-- Test Dependency Versions -->
         <version.weld-junit5>2.0.2.Final</version.weld-junit5>
@@ -40,17 +40,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>wildfly-jakartaee8-with-tools</artifactId>
-                <version>${wildfly.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>wildfly-microprofile</artifactId>
-                <version>${wildfly.version}</version>
+                <groupId>fish.payara.api</groupId>
+                <artifactId>payara-bom</artifactId>
+                <version>${version.payara}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -58,28 +50,9 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Wildfly Spec Dependencies -->
         <dependency>
-            <groupId>jakarta.enterprise</groupId>
-            <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.spec.javax.ws.rs</groupId>
-            <artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.spec.javax.annotation</groupId>
-            <artifactId>jboss-annotations-api_1.3_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_4.0_spec</artifactId>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-web-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -115,12 +88,6 @@
         </dependency>
 
         <!-- Wildfly Runtime Dependencies -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -174,23 +141,30 @@
             </plugin>
 
             <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>${wildfly-plugin.version}</version>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <version>${payaramicro.maven.plugin.version}</version>
                 <configuration>
-                    <version>${wildfly.version}</version>
-                    <javaOpts>
-                        <javaOpt>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</javaOpt>
-                    </javaOpts>
-                    <commands>
-                        <command>
-                            /subsystem=logging/root-logger=ROOT:write-attribute(name="level", value="TRACE")
-                        </command>
-                    </commands>
-                    <timeout>120</timeout>
+                    <useUberJar>false</useUberJar>
+                    <deployWar>true</deployWar>
+                    <payaraVersion>${version.payara}</payaraVersion>
+                    <contextRoot>/rhcemd</contextRoot>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>bundle</id>
+                        <goals>
+                            <goal>bundle</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>start</id>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
-
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

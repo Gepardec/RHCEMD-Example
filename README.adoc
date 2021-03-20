@@ -4,7 +4,7 @@ This repository holds the example application as a preparation for the RHCEMD (R
 
 == Setup
 
-This example is based on the Wildfly 22 application server.
+This example is based on the JakartaEE 8 spec, Microprofile 3.0 spec and the Payara Micro 5.2021.1 application server.
 
 IMPORTANT: You need to run the server with the `standalone-microprofile.xml` configuration.
 
@@ -197,3 +197,7 @@ http://localhost:8080/rhcemd/api/bulkhead/semaphore
 # The endpoint for the threadpool isolation
 http://localhost:8080/rhcemd/api/bulkhead/threadpool
 ----
+
+=== Metrics
+
+Read the link:https://download.eclipse.org/microprofile/microprofile-metrics-2.3/microprofile-metrics-spec-2.3.html[doc] about Metrics to understand how they work.

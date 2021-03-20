@@ -1,6 +1,7 @@
 package at.gepardec.example.rhcemd;
 
 import at.gepardec.example.rhcemd.mp.fault.BulkheadService;
+import org.eclipse.microprofile.metrics.annotation.Counted;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -9,6 +10,7 @@ import javax.ws.rs.Path;
 
 @Path("/bulkhead")
 @RequestScoped
+@Counted(name = "example-resource", absolute = true)
 public class BulkheadResource {
 
     @Inject

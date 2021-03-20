@@ -1,12 +1,12 @@
 package at.gepardec.example.rhcemd;
 
 import at.gepardec.example.rhcemd.mp.config.ApplicationConfig;
-import org.slf4j.Logger;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.util.logging.Logger;
 
 @WebListener
 public class StartupListener implements ServletContextListener {
@@ -19,6 +19,6 @@ public class StartupListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        log.info("Application started with configuration: {}", appConfig.toString());
+        log.info("Application started with configuration: " + appConfig.toString());
     }
 }
